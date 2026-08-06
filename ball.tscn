@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bxevymji3t5c0"]
+
+[ext_resource type="Script" uid="uid://bucrwlbbuw2uj" path="res://scenes/ball.gd" id="1_cxlvu"]
+[ext_resource type="Texture2D" uid="uid://cfy0g8o1n51li" path="res://arts/Ball.png" id="2_f7cbr"]
+[ext_resource type="AudioStream" uid="uid://bq400k037odpj" path="res://arts/pingpongbat.ogg" id="3_f7cbr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s1fef"]
+radius = 15.033297
+
+[node name="Ball" type="RigidBody2D" unique_id=1331755474]
+gravity_scale = 0.0
+script = ExtResource("1_cxlvu")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1593315506]
+texture = ExtResource("2_f7cbr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1223927474]
+shape = SubResource("CircleShape2D_s1fef")
+
+[node name="BallSound" type="AudioStreamPlayer2D" parent="." unique_id=2079415709]
+stream = ExtResource("3_f7cbr")

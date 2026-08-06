@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://b8jw5xdhq5q68"]
+
+[ext_resource type="Script" uid="uid://cuwnhyk000a7k" path="res://scenes/left_paddle.gd" id="1_2tatk"]
+[ext_resource type="Texture2D" uid="uid://cjyqefsm024yw" path="res://arts/Computer.png" id="1_6q4ch"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s1fef"]
+size = Vector2(16, 120)
+
+[node name="LeftPaddle" type="CharacterBody2D" unique_id=1476983188]
+script = ExtResource("1_2tatk")
+
+[node name="Computer" type="Sprite2D" parent="." unique_id=1480316163]
+texture_filter = 1
+texture = ExtResource("1_6q4ch")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=160088880]
+shape = SubResource("RectangleShape2D_s1fef")

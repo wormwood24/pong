@@ -1,0 +1,112 @@
+[gd_scene format=3 uid="uid://ch0pjwbc18waa"]
+
+[ext_resource type="Script" uid="uid://c423ck8kjaq1j" path="res://scenes/game.gd" id="1_iywne"]
+[ext_resource type="Texture2D" uid="uid://c1bpetuqhoduv" path="res://arts/Board.png" id="1_uwrxv"]
+[ext_resource type="PackedScene" uid="uid://b8jw5xdhq5q68" path="res://scenes/left_paddle.tscn" id="2_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://btg2maho613f4" path="res://scenes/right_paddle.tscn" id="3_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://bxevymji3t5c0" path="res://scenes/ball.tscn" id="4_lbhrr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s1fef"]
+size = Vector2(806, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_khhxn"]
+size = Vector2(810, 17)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qsuaf"]
+size = Vector2(20, 558)
+
+[node name="Game" type="Node2D" unique_id=1262388050 node_paths=PackedStringArray("reset_timer")]
+script = ExtResource("1_iywne")
+reset_timer = NodePath("ResetTimer")
+
+[node name="Board" type="Sprite2D" parent="." unique_id=862076562]
+texture_filter = 1
+texture = ExtResource("1_uwrxv")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=239035860]
+zoom = Vector2(2.395, 2.37)
+
+[node name="Walls" type="Node2D" parent="." unique_id=1740112324]
+
+[node name="TopWall" type="StaticBody2D" parent="Walls" unique_id=1511941604]
+position = Vector2(0, -238)
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/TopWall" unique_id=2100563025]
+position = Vector2(2, 0)
+shape = SubResource("RectangleShape2D_s1fef")
+
+[node name="BottomWall" type="StaticBody2D" parent="Walls" unique_id=488268716]
+position = Vector2(0, 238)
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/BottomWall" unique_id=1346684588]
+position = Vector2(2, -1.5)
+shape = SubResource("RectangleShape2D_khhxn")
+
+[node name="LeftPaddle" parent="." unique_id=1476983188 node_paths=PackedStringArray("ball") instance=ExtResource("2_yqjtg")]
+position = Vector2(-386, 0)
+paddle_speed = 300
+ball = NodePath("../Ball")
+
+[node name="RightPaddle" parent="." unique_id=116974708 instance=ExtResource("3_lnu2h")]
+position = Vector2(386, 0)
+paddle_speed = 300
+
+[node name="Ball" parent="." unique_id=1331755474 instance=ExtResource("4_lbhrr")]
+collision_layer = 4
+collision_mask = 3
+
+[node name="Goals" type="Node2D" parent="." unique_id=517751200]
+
+[node name="LeftSideGoal" type="Area2D" parent="Goals" unique_id=558946418]
+position = Vector2(-421, 0)
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Goals/LeftSideGoal" unique_id=940020548]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_qsuaf")
+
+[node name="RightSideGoal" type="Area2D" parent="Goals" unique_id=901099251]
+position = Vector2(421, 0)
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Goals/RightSideGoal" unique_id=2131002674]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_qsuaf")
+
+[node name="ResetTimer" type="Timer" parent="." unique_id=520037905]
+wait_time = 2.0
+one_shot = true
+
+[node name="Scores" type="Control" parent="." unique_id=1998813564]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LeftPaddleScore" type="Label" parent="Scores" unique_id=1667896817]
+layout_mode = 1
+offset_left = -51.0
+offset_top = -247.0
+offset_right = -8.0
+offset_bottom = -144.0
+theme_override_font_sizes/font_size = 75
+text = "0"
+horizontal_alignment = 1
+
+[node name="RightPaddleScore" type="Label" parent="Scores" unique_id=167919334]
+layout_mode = 1
+offset_left = 3.0
+offset_top = -247.0
+offset_right = 46.0
+offset_bottom = -144.0
+theme_override_font_sizes/font_size = 75
+text = "0"
+horizontal_alignment = 1
+
+[connection signal="body_entered" from="Goals/LeftSideGoal" to="." method="_on_left_side_goal_body_entered"]
+[connection signal="body_entered" from="Goals/RightSideGoal" to="." method="_on_right_side_goal_body_entered"]
+[connection signal="timeout" from="ResetTimer" to="." method="_on_reset_timer_timeout"]

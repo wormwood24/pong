@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://btg2maho613f4"]
+
+[ext_resource type="Script" uid="uid://dlq63crstwmu5" path="res://scenes/right_paddle.gd" id="1_e7tu0"]
+[ext_resource type="Texture2D" uid="uid://52ddrrc1uwya" path="res://arts/Player.png" id="2_k4rsv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s1fef"]
+size = Vector2(16, 120)
+
+[node name="Right Paddle" type="CharacterBody2D" unique_id=1476983188]
+script = ExtResource("1_e7tu0")
+
+[node name="Computer" type="Sprite2D" parent="." unique_id=1480316163]
+texture_filter = 1
+texture = ExtResource("2_k4rsv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=160088880]
+shape = SubResource("RectangleShape2D_s1fef")
